@@ -1,11 +1,9 @@
 <template>
-  <div class="col-md-12">
-    <div class="card card-container">
-      <img
-        id="profile-img"
-        src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-        class="profile-img-card"
-      />
+  <div class="col-md-12 pt-5 pt-5">
+    <div class="mycard card card-container">
+
+      
+      <img class="profile-img-card" src="https://i.imgur.com/iNFaRXx.jpg" />
       <form name="form" @submit.prevent="handleLogin">
         <div class="form-group">
           <label for="username">Email</label>
@@ -37,8 +35,8 @@
             v-if="errors.has('password')"
           >Password is required!</div>
         </div>
-        <div class="form-group">
-          <button class="btn btn-primary btn-block" :disabled="loading">
+        <div class="form-group d-flex justify-content-center">
+          <button class="my-card-btn btn btn-danger btn-block mt-3" :disabled="loading">
             <span class="spinner-border spinner-border-sm" v-show="loading"></span>
             <span>Login</span>
           </button>
@@ -104,7 +102,14 @@ label {
   display: block;
   margin-top: 10px;
 }
-
+.my-card-btn {
+    
+    padding: 10px 28px;
+    text-decoration: none;
+    text-transform: capitalize;
+    border-radius: 10px 0;
+    transition: .5s
+}
 .card-container.card {
   max-width: 350px !important;
   padding: 40px 40px;
@@ -115,12 +120,12 @@ label {
   padding: 20px 25px 30px;
   margin: 0 auto 25px;
   margin-top: 50px;
-  -moz-border-radius: 2px;
-  -webkit-border-radius: 2px;
-  border-radius: 2px;
-  -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-  -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  -moz-border-radius: 40px 0;
+  -webkit-border-radius: 40px 0;
+  border-radius: 40px 0;
+  -moz-box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.3);
 }
 
 .profile-img-card {

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <nav class="navbar navbar-expand navbar-dark bg-dark">
-      <a href="#" class="navbar-brand">bezKoder</a>
+      <a href="#" class="navbar-brand">Vrent</a>
       <div class="navbar-nav mr-auto">
         <li class="nav-item">
           <a href="/home" class="nav-link">
@@ -17,12 +17,24 @@
         <li class="nav-item">
           <a href="/user" class="nav-link" v-if="currentUser">User</a>
         </li>
+        <li class="nav-item">
+          <a href="/dashboard" class="nav-link" v-if="currentUser">Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a href="/dashboardtwo" class="nav-link" v-if="currentUser">Dashboardto</a>
+        </li>
+        <li class="nav-item">
+          <a href="/listspace" class="nav-link" v-if="currentUser">ListSpace</a>
+        </li>
+        <li class="nav-item">
+          <a href="/basic:currentUser.id" class="nav-link" v-if="!currentUser">Basic</a>
+        </li>
       </div>
 
       <div class="navbar-nav ml-auto" v-if="!currentUser">
         <li class="nav-item">
           <a href="/register" class="nav-link">
-            <font-awesome-icon icon="user-plus" /> Sign Up
+            <font-awesome-icon icon="user-plus" />Sign Up
           </a>
         </li>
         <li class="nav-item">
