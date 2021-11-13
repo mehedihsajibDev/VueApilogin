@@ -13,9 +13,11 @@
 			</div>
 			<div class="col-md-9">
   <div class="d-flex flex-column mb-3 justify-content-center text-center">
-  <div class="bgbasic p-2  mt-1">Basics</div>
-  <div class="bgdescription p-2 mt-1"><a href="login.html" style="text-decoration:none;">Description</a></div>
-  <div class="bg p-2 mt-1">Location</div>
+ <span v-if="steps.basics==1">  <div class=" p-2  mt-1"> <router-link :to="{ path: '/basic'+this.$route.params.id }">Basic</router-link>
+  </div></span>
+ <span v-else>  <div class="bgbasic p-2  mt-1"><router-link :to="{ path: '/basic'+this.$route.params.id }">Basic</router-link></div></span>
+ <span v-if="step=='description'"><div class="ab p-2 mt-1"><a href="login.html" style="text-decoration:none;">Description</a></div></span>
+  <div class="bg p-2 mt-1"><router-link :to="{ path: '/location'+this.$route.params.id }" >Location</router-link></div>
   <div class="bg p-2 mt-1">Amenities</div>
   <div class="bg p-2 mt-1">Photos</div>
   <div class="bg p-2 mt-1">Pricing</div>
@@ -58,6 +60,7 @@
     </div>
     <div>
    <button type="submit" class="btn btn-primary mt-4">Next</button>
+   <router-link :to="{ path: '/basic'+this.$route.params.id }" class="btn btn-primary mt-4">Back</router-link>
     </div>
   </div>
 </div>
@@ -82,6 +85,8 @@ export default {
     return {
       name:"",
       summary:"",
+      step:'',
+      steps:'',
     
     };
   },
@@ -102,7 +107,8 @@ view() {
           }
         )
         .then((res) => {
-            res.data
+            this.step=res.data.data.step;
+            this.steps=res.data.data.steps;
       
               
         });
@@ -152,6 +158,9 @@ color:white;
 .bg{ 
 background-color: #DFDBD2;
 border: 1px solid gray;
+}
+.ab{
+background-color:#74992e;
 }
 .bg:a{ 
 color:#353935;

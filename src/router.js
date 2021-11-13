@@ -39,8 +39,8 @@ export const router = new Router({
             // lazy-loaded
             component: () =>
                 import ('./views/BoardUser.vue')
-        }, 
-        
+        },
+
         {
             path: '/dashboard',
             name: 'dashboard',
@@ -48,7 +48,7 @@ export const router = new Router({
             component: () =>
                 import ('./views/Dashboard.vue')
         },
-          
+
         {
             path: '/listspace',
             name: 'listspace',
@@ -63,7 +63,7 @@ export const router = new Router({
             component: () =>
                 import ('./views/Basic.vue')
         },
-      
+
         {
             path: '/dashboardtwo',
             name: 'dashboardtwo',
@@ -84,8 +84,15 @@ export const router = new Router({
             // lazy-loaded
             component: () =>
                 import ('./views/Location.vue')
-        }
-        
+        },
+        {
+            path: '/photo:id',
+            name: 'photo',
+            // lazy-loaded
+            component: () =>
+                import ('./views/Photo.vue')
+        },
+
     ]
 });
 router.beforeEach((to, from, next) => {

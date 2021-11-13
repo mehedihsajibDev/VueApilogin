@@ -12,18 +12,20 @@
 			</div>
 			<div class="col-md-9">
   <div class="d-flex flex-column mb-3 justify-content-center text-center">
-  <div class="p-2  mt-1 ab">Basics</div>
-  <div class="bgcolor p-2 mt-1"><a href="login.html" style="text-decoration:none;">Description</a></div>
+  
+  <span v-if="step=='basics'"><div class="p-2  mt-1 ab">Basics</div></span>
+  <div class="bgcolor p-2 mt-1"> <router-link :to="{ path: '/description'+this.$route.params.id }" >Description</router-link>
+  </div>
   <div class="bgcolor p-2 mt-1">Location</div>
   <div class="bgcolor p-2 mt-1">Amenities</div>
   <div class="bgcolor p-2 mt-1">Photos</div>
   <div class="bgcolor p-2 mt-1">Pricing</div>
   <div class="bgcolor p-2 mt-1">Bookking</div>
   <div class="bgcolor p-2 mt-1">Calendar</div>
-</div>
-			</div>
+  </div>
+	</div>
 			
-		</div>
+	</div>
 	
 </div>
 
@@ -73,8 +75,8 @@
 	<div class="row">
 		<div class="col-md-6">
    <label for="inputState" class="form-label">Bathrooms</label>
-    <select id="inputState" class="form-select" v-model="totalbathroom" required>
-      <option selected>1</option>
+    <select id="inputState" class="form-select" v-model="totalbathroom" required  >
+      <option>1</option>
       <option>2</option>
       <option>3</option>
       <option>4</option>
@@ -102,6 +104,7 @@
     <label for="inputState" class="form-label">Property Type</label>
     <select class="form-select p-1"  v-model="property_type" required>
    
+
     <option  v-for="(propertyviewlist,index) in propertyviewlists" 
       :key="propertyviewlist.id" :value="index" :selected="property_type==propertyviews.property_type_name">{{propertyviewlist}}</option> 
     
@@ -133,7 +136,12 @@
   
 	</div>
 <div class="d-flex justify-content-end">
-      <button type="submit" class="btn btn-primary mt-4">Next</button>
+      <button type="submit" class="btn btn-primary mt-4"    :disabled="loading">   <span
+                  v-if="loading"
+                  class="spinner-border spinner-border-sm"
+                  role="status"
+                  aria-hidden="true"
+                ></span>Next</button>
 </div>
         
 </div>
@@ -171,7 +179,12 @@ export default {
     
       property_type:"",
       space_type:"",
-      bed_type:""
+      bed_type:"",
+      step:'',
+      bedtypes:'',
+
+
+      loading: false,
     };
   },
   mounted(){ 
@@ -204,10 +217,21 @@ server.on('connection', function (socket) {
           this.propertyviewlists = res.data.data.property_type;
           this.rooms = res.data.data.space_type;
           this.bedtypes = res.data.data.bed_type;
-          
+          this.accommodates = res.data.data.accommodates;
+
+          this.totalbedrooms = res.data.data.property.bedrooms;
+          this.bed_type = res.data.data.property.bed_type;
+          this.totalbed = res.data.data.property.beds;
+          this.totalbathroom = res.data.data.property.bathrooms;
+          this.property_type= res.data.data.property.property_type,
+          this.space_type=res.data.data.property.space_type,
+
+         this.step=res.data.data.step
+      
         });
     },
     add() {
+        this.loading = true;
       let user = JSON.parse(localStorage.getItem("user"));
       axios
         .post(
@@ -216,6 +240,7 @@ server.on('connection', function (socket) {
             "/basics",
           
           { 
+            
         property_type:this.property_type,
         space_type:this.space_type,
         accommodates:this.accomodates,
@@ -230,11 +255,14 @@ server.on('connection', function (socket) {
           }
         )
         .then((res) => {
-          
-             this.$router.push(`/description${res.data.data.id}`);
+            this.loading = false;
+          this.$router.push(`/description${res.data.data.id}`);
        
          // this.$router.push('/description');
  
+        }).catch((res) => {
+          res.data
+          this.loading = false         
         });
     },
  

@@ -13,9 +13,11 @@
 			</div>
 			<div class="col-md-9">
   <div class="d-flex flex-column mb-3 justify-content-center text-center">
-  <div class="bgbasic p-2  mt-1">Basics</div>
-  <div class="bgdescription p-2 mt-1">Description</div>
-  <div class="bgbasic p-2 mt-1">Location</div>
+   <span v-if="steps.basics==1"> <div class=" p-2  mt-1"><router-link :to="{ path: '/basic'+this.$route.params.id }" >Basics</router-link></div></span>
+   <span v-else> <div class="bgbasic p-2  mt-1">Basics</div></span>
+  <span v-if="steps.description==1"> <div class=" p-2 mt-1"><router-link :to="{ path: '/description'+this.$route.params.id }" >Description</router-link></div></span>
+  <span v-else> <div class="bgdescription p-2 mt-1"><router-link :to="{ path: '/description'+this.$route.params.id }" >Description</router-link></div></span>
+ <span v-if="step=='location'"><div class="ab p-2 mt-1">Location</div></span>
   <div class="bg p-2 mt-1">Amenities</div>
   <div class="bg p-2 mt-1">Photos</div>
   <div class="bg p-2 mt-1">Pricing</div>
@@ -117,7 +119,8 @@ export default {
   data() {
     return {
      
-    
+    step:'',
+    steps:'',
     };
   },
   mounted(){ 
@@ -137,7 +140,8 @@ view() {
           }
         )
         .then((res) => {
-            res.data
+           this.step=res.data.data.step,
+              this.steps=res.data.data.steps;
             console.log(res.data);
               
         });
@@ -189,6 +193,9 @@ color:white;
 .bg{ 
 background-color: #DFDBD2;
 border: 1px solid gray;
+}
+.ab{
+background-color:#74992e;
 }
 .bg:a{ 
 color:#353935;
