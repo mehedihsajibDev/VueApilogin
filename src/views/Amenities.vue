@@ -1,8 +1,6 @@
 <template>
   
-   
-
- <form action="form" @submit.prevent="add()">
+   <form action="form" @submit.prevent="add()">
     <div class="container">
     <div class="mt-5 row">
 	<div class="col-md-1">
@@ -22,10 +20,10 @@
  <span v-else><div class="bgbasic p-2 mt-1"><router-link :to="{ path: '/description'+this.$route.params.id }" style="text-decoration:none;">Description</router-link></div></span> 
  <span v-if="steps.location==1"><div class="p-2 mt-1" style="border:1px solid black;"><router-link :to="{ path: '/location'+this.$route.params.id }" style="text-decoration:none;">Location</router-link></div></span>
  <span v-else><div class="bgbasic p-2 mt-1" style="border:1px solid black;"><router-link :to="{ path: '/location'+this.$route.params.id }" style="text-decoration:none;">Location</router-link></div></span>
-  <span v-if="steps.amenities==1"><div class="p-2 mt-1" style="border:1px solid black;"><router-link :to="{ path: '/amenities'+this.$route.params.id }" style="text-decoration:none;">Amenities</router-link></div></span>
- <span v-else><div class="bgbasic p-2 mt-1" style="border:1px solid black;"><router-link :to="{ path: '/amenities'+this.$route.params.id }" style="text-decoration:none;">Amenities</router-link></div></span>
   
-  <span v-if="step=='photos'"><div class="ab p-2 mt-1">Photos</div></span>
+  <span v-if="step=='amenities'"><div class="ab p-2 mt-1">Amenities</div></span>
+  <span v-if="steps.photos==1"> <div class="p-2 mt-1" style="border:1px solid black;"><router-link :to="{ path: '/photo'+this.$route.params.id }" style="text-decoration:none;">Photos</router-link></div> </span>
+  <span v-else> <div class="bgbasic p-2 mt-1"><router-link :to="{ path: '/photo'+this.$route.params.id }" style="text-decoration:none;">Photos</router-link></div> </span>
   <span v-if="steps.pricing==1"> <div class="p-2 mt-1" style="border:1px solid black;">Pricing</div> </span>
   <span v-else> <div class="bgbasic p-2 mt-1">Pricing</div> </span>
   <span v-if="steps.booking==1"> <div class="p-2 mt-1" style="border:1px solid black;">Bookking</div> </span>
@@ -40,18 +38,29 @@
 <div class="col-md-6  pb-3 pl-2">
   <div class="border d-flex flex-row row">
     <div class="backgrnd d-flex align-items-start">
-      <h4>Photos</h4>
+      <h4>Common Amenities</h4>
     </div>
     <div class="d-flex justify-content-between">
 
     <div class="mt-3">
-<input type="file" class="form-control"  @change="previewFiles" >
+ <div class="form-check">
+  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="amenities[]" data-saving="1">
+  <label class="form-check-label" for="flexCheckDefault">
+    Default checkbox
+  </label>
+</div>
     </div>
     <div class="mt-3">
+     <div class="form-check">
+  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="amenities[]" data-saving="1">
+  <label class="form-check-label" for="flexCheckDefault">
+    Default checkbox
+  </label>
+</div>
     </div>
     
-    <div class="d-flex justify-content-between">
-  <button type="submit" class="btn btn-primary mt-4"> submit</button>               
+    <div class="mt-3">
+   
     </div>
 
     </div>
@@ -59,12 +68,11 @@
   </div>
   <div class="d-flex justify-content-between mt-3">
     <div>
-    <router-link :to="{ path: '/amenities'+this.$route.params.id }" class="btn btn-info mt-4">Back</router-link>
       <!-- <button class="btn btn-primary"><a href="/basic:93" style="text-decoration: none;color: white;">Back</a></button> -->
     </div>
-    <div >
-   <button type="submit" class="btn btn-info mt-4">Next</button>
-   
+    <div>
+   <button type="submit" class="btn btn-primary mt-4">Next</button>
+   <router-link :to="{ path: '/basic'+this.$route.params.id }" class="btn btn-primary mt-4">Back</router-link>
     </div>
   </div>
 </div>
@@ -79,7 +87,6 @@
     
 
 </form>
-
 </template>
 <script>
 
@@ -88,7 +95,7 @@ export default {
   name: "user",
   data() {
     return {
-      image:[],
+      name:"",
       summary:"",
       step:'',
       steps:'',
@@ -99,54 +106,53 @@ export default {
     this.view();
     
   },
-methods: { 
-    previewFiles()
-    {
-      this.image = this.$refs.myFiles.image
-    },
+ methods: { 
+
 view() {
       let user = JSON.parse(localStorage.getItem("user"));
       axios
         .get(
           "https://vrent.techvill.org/vrentapi/api/listing/" +
             this.$route.params.id +
-            "/photos",
+            "/amenities ",
           {
             headers: { Authorization: "Bearer " + user.token },
           }
         )
         .then((res) => {
+            console.log(res.data);
             this.step=res.data.data.step;
             this.steps=res.data.data.steps;
       
-              console.log(this.steps);
-        });
-    },
-    add() {
-      let user = JSON.parse(localStorage.getItem("user"));
-      axios
-        .post(
-          "https://vrent.techvill.org/vrentapi/api/listing/" +
-            this.$route.params.id +
-            "/photos",
-          
-          { 
-
-      //  photos []=[this.photos]
-         
-         },
-          {
-            headers: { Authorization: "Bearer " + user.token },
-          }
-        )
-        .then((res) => {
-        
-            this.$router.push(`/price${res.data.data.steps.property_id}`);
-          
-       
               
         });
     },
+
+
+    // add() {
+    //   let user = JSON.parse(localStorage.getItem("user"));
+    //   axios
+    //     .post(
+    //       "https://vrent.techvill.org/vrentapi/api/listing/" +
+    //         this.$route.params.id +
+    //         "/description",
+          
+    //       { 
+    //        name:this.name,
+    //        summary:this.summary,
+    //       },
+    //       {
+    //         headers: { Authorization: "Bearer " + user.token },
+    //       }
+    //     )
+    //     .then((res) => {
+    //         res.data
+    //         this.$router.push(`/location${res.data.data.id}`);
+          
+       
+              
+    //     });
+    // },
 },
 
 }

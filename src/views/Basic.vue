@@ -14,13 +14,13 @@
   <div class="d-flex flex-column mb-3 justify-content-center text-center">
   
   <span v-if="step=='basics'"><div class="p-2  mt-1 ab">Basics</div></span>
-  <div class="bgcolor p-2 mt-1"> <router-link :to="{ path: '/description'+this.$route.params.id }" >Description</router-link>
+  <div class="bgcolor p-2 mt-1" > <router-link :to="{ path: '/description'+this.$route.params.id }" style="text-decoration:none;">Description</router-link>
   </div>
-  <div class="bgcolor p-2 mt-1">Location</div>
-  <div class="bgcolor p-2 mt-1">Amenities</div>
+  <div class="bgcolor p-2 mt-1"><router-link :to="{ path: '/location'+this.$route.params.id }" style="text-decoration:none;">Location</router-link></div>
+  <div class="bgcolor p-2 mt-1"><router-link :to="{ path: '/amenities'+this.$route.params.id }" style="text-decoration:none;">Amenities</router-link></div>
   <div class="bgcolor p-2 mt-1">Photos</div>
   <div class="bgcolor p-2 mt-1">Pricing</div>
-  <div class="bgcolor p-2 mt-1">Bookking</div>
+  <div class="bgcolor p-2 mt-1"><router-link :to="{ path: '/booking'+this.$route.params.id }" style="text-decoration:none;">Booking</router-link></div>
   <div class="bgcolor p-2 mt-1">Calendar</div>
   </div>
 	</div>
@@ -35,7 +35,7 @@
 		<div class="col-md-6">
    <label for="inputState" class="form-label">Bedrooms</label>
     <select id="inputState" class="form-select" v-model="totalbedrooms" required>
-       <option selected value="1">1</option>
+       <option value="1">1</option>
       <option value="2">2</option>
       <option value="3">3</option>
       <option value="4">4</option>

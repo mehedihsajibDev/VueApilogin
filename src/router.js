@@ -86,13 +86,33 @@ export const router = new Router({
                 import ('./views/Location.vue')
         },
         {
+            path: '/amenities:id',
+            name: 'amenities',
+            // lazy-loaded
+            component: () =>
+                import ('./views/Amenities.vue')
+        },
+        {
             path: '/photo:id',
             name: 'photo',
             // lazy-loaded
             component: () =>
                 import ('./views/Photo.vue')
         },
-
+        {
+            path: '/price:id',
+            name: 'price',
+            // lazy-loaded
+            component: () =>
+                import ('./views/Pricing.vue')
+        },
+        {
+            path: '/booking:id',
+            name: 'booking',
+            // lazy-loaded
+            component: () =>
+                import ('./views/Booking.vue')
+        },
     ]
 });
 router.beforeEach((to, from, next) => {

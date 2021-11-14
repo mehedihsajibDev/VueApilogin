@@ -1,7 +1,5 @@
 <template>
   
-   
-
  <form action="form" @submit.prevent="add()">
     <div class="container">
     <div class="mt-5 row">
@@ -22,14 +20,17 @@
  <span v-else><div class="bgbasic p-2 mt-1"><router-link :to="{ path: '/description'+this.$route.params.id }" style="text-decoration:none;">Description</router-link></div></span> 
  <span v-if="steps.location==1"><div class="p-2 mt-1" style="border:1px solid black;"><router-link :to="{ path: '/location'+this.$route.params.id }" style="text-decoration:none;">Location</router-link></div></span>
  <span v-else><div class="bgbasic p-2 mt-1" style="border:1px solid black;"><router-link :to="{ path: '/location'+this.$route.params.id }" style="text-decoration:none;">Location</router-link></div></span>
-  <span v-if="steps.amenities==1"><div class="p-2 mt-1" style="border:1px solid black;"><router-link :to="{ path: '/amenities'+this.$route.params.id }" style="text-decoration:none;">Amenities</router-link></div></span>
- <span v-else><div class="bgbasic p-2 mt-1" style="border:1px solid black;"><router-link :to="{ path: '/amenities'+this.$route.params.id }" style="text-decoration:none;">Amenities</router-link></div></span>
-  
-  <span v-if="step=='photos'"><div class="ab p-2 mt-1">Photos</div></span>
-  <span v-if="steps.pricing==1"> <div class="p-2 mt-1" style="border:1px solid black;">Pricing</div> </span>
-  <span v-else> <div class="bgbasic p-2 mt-1">Pricing</div> </span>
-  <span v-if="steps.booking==1"> <div class="p-2 mt-1" style="border:1px solid black;">Bookking</div> </span>
-  <span v-else> <div class="bgbasic p-2 mt-1">Bookking</div> </span>
+
+ <span v-if="steps.amenities==1"><div class="p-2 mt-1" style="border:1px solid black;"><router-link :to="{ path: '/amenities'+this.$route.params.id }" style="text-decoration:none;">Amenities</router-link></div></span>
+ 
+  <span v-else><div class="bgbasic p-2 mt-1" style="border:1px solid black;"><router-link :to="{ path: '/amenities'+this.$route.params.id }" style="text-decoration:none;">Amenities</router-link></div></span>
+  <span v-if="steps.photos==1"> <div class="p-2 mt-1" style="border:1px solid black;"><router-link :to="{ path: '/photo'+this.$route.params.id }" style="text-decoration:none;">Photo</router-link></div> </span>
+  <span v-else> <div class="bgbasic p-2 mt-1"><router-link :to="{ path: '/photo'+this.$route.params.id }" style="text-decoration:none;">Photo</router-link></div> </span>
+  <span  v-if="steps.pricing==1"><div class=" p-2 mt-1"  style="border:1px solid black;"><router-link :to="{ path: '/price'+this.$route.params.id }" style="text-decoration:none;">Pricing</router-link></div></span>
+ <span v-else> <div class="bgbasic p-2 mt-1"><router-link :to="{ path: '/price'+this.$route.params.id }" style="text-decoration:none;">Pricing</router-link></div> </span>
+
+ <span v-if="step=='booking'"><div class="ab p-2 mt-1">Booking</div></span>
+
  
 </div>
 </div>
@@ -40,32 +41,31 @@
 <div class="col-md-6  pb-3 pl-2">
   <div class="border d-flex flex-row row">
     <div class="backgrnd d-flex align-items-start">
-      <h4>Photos</h4>
+      <h4>Base price</h4>
     </div>
-    <div class="d-flex justify-content-between">
-
-    <div class="mt-3">
-<input type="file" class="form-control"  @change="previewFiles" >
+    <div class="col-md-6">
+  
     </div>
-    <div class="mt-3">
-    </div>
-    
-    <div class="d-flex justify-content-between">
-  <button type="submit" class="btn btn-primary mt-4"> submit</button>               
-    </div>
-
+    <div class="col-md-6">
+    <label for="inputState" class="form-label">Booking Type</label>
+    <select id="inputState" class="form-select"  v-model="booking_type" required>
+       <option value="request">Review each request</option>
+       <option value="instant">Guest Book Instanly</option>
+    </select>
     </div>
 
   </div>
+  <div class="mt-5">
+  </div>
+ 
   <div class="d-flex justify-content-between mt-3">
-    <div>
-    <router-link :to="{ path: '/amenities'+this.$route.params.id }" class="btn btn-info mt-4">Back</router-link>
-      <!-- <button class="btn btn-primary"><a href="/basic:93" style="text-decoration: none;color: white;">Back</a></button> -->
-    </div>
-    <div >
+  <div>
+    <router-link :to="{ path: '/pricing'+this.$route.params.id }" class="btn btn-info mt-4">Back</router-link>
+  </div>
+
+  <div>
    <button type="submit" class="btn btn-info mt-4">Next</button>
-   
-    </div>
+  </div>
   </div>
 </div>
 
@@ -88,8 +88,8 @@ export default {
   name: "user",
   data() {
     return {
-      image:[],
-      summary:"",
+     
+      booking_type:'',
       step:'',
       steps:'',
     
@@ -100,17 +100,14 @@ export default {
     
   },
 methods: { 
-    previewFiles()
-    {
-      this.image = this.$refs.myFiles.image
-    },
+   
 view() {
       let user = JSON.parse(localStorage.getItem("user"));
       axios
         .get(
           "https://vrent.techvill.org/vrentapi/api/listing/" +
             this.$route.params.id +
-            "/photos",
+            "/booking",
           {
             headers: { Authorization: "Bearer " + user.token },
           }
@@ -118,8 +115,8 @@ view() {
         .then((res) => {
             this.step=res.data.data.step;
             this.steps=res.data.data.steps;
-      
-              console.log(this.steps);
+            this.booking_typ=res.data.data.property.booking_type;
+            console.log(this.steps);
         });
     },
     add() {
@@ -128,11 +125,12 @@ view() {
         .post(
           "https://vrent.techvill.org/vrentapi/api/listing/" +
             this.$route.params.id +
-            "/photos",
+            "/booking",
           
           { 
 
-      //  photos []=[this.photos]
+         booking_type:this.booking_type
+        
          
          },
           {
@@ -140,8 +138,9 @@ view() {
           }
         )
         .then((res) => {
-        
-            this.$router.push(`/price${res.data.data.steps.property_id}`);
+        res.data
+        console.log(res.data);
+          //  this.$router.push(`/amenities${res.data.data.steps.property_id}`);
           
        
               

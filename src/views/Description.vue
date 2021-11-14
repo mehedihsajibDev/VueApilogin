@@ -13,11 +13,12 @@
 			</div>
 			<div class="col-md-9">
   <div class="d-flex flex-column mb-3 justify-content-center text-center">
- <span v-if="steps.basics==1">  <div class=" p-2  mt-1"> <router-link :to="{ path: '/basic'+this.$route.params.id }">Basic</router-link>
+ <span v-if="steps.basics==1">  <div class=" p-2  mt-1" style="border:1px solid black;"> <router-link :to="{ path: '/basic'+this.$route.params.id }" style="text-decoration:none;">Basic</router-link>
   </div></span>
- <span v-else>  <div class="bgbasic p-2  mt-1"><router-link :to="{ path: '/basic'+this.$route.params.id }">Basic</router-link></div></span>
- <span v-if="step=='description'"><div class="ab p-2 mt-1"><a href="login.html" style="text-decoration:none;">Description</a></div></span>
-  <div class="bg p-2 mt-1"><router-link :to="{ path: '/location'+this.$route.params.id }" >Location</router-link></div>
+ <span v-else>  <div class="bgbasic p-2  mt-1"><router-link :to="{ path: '/basic'+this.$route.params.id } " style="text-decoration:none;">Basic</router-link></div></span>
+ <span v-if="step=='description'"><div class="ab p-2 mt-1"><router-link :to="{ path: '/description'+this.$route.params.id }" style="text-decoration:none;">Description</router-link></div></span>
+  
+  <div class="bg p-2 mt-1"><router-link :to="{ path: '/location'+this.$route.params.id }" style="text-decoration:none;">Location</router-link></div>
   <div class="bg p-2 mt-1">Amenities</div>
   <div class="bg p-2 mt-1">Photos</div>
   <div class="bg p-2 mt-1">Pricing</div>
@@ -56,11 +57,12 @@
   </div>
   <div class="d-flex justify-content-between mt-3">
     <div>
+    <router-link :to="{ path: '/basic'+this.$route.params.id }" class="btn btn-primary mt-4">Back</router-link>
       <!-- <button class="btn btn-primary"><a href="/basic:93" style="text-decoration: none;color: white;">Back</a></button> -->
     </div>
-    <div>
+    <div >
    <button type="submit" class="btn btn-primary mt-4">Next</button>
-   <router-link :to="{ path: '/basic'+this.$route.params.id }" class="btn btn-primary mt-4">Back</router-link>
+   
     </div>
   </div>
 </div>
