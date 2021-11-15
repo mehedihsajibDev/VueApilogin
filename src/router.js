@@ -113,6 +113,13 @@ export const router = new Router({
             component: () =>
                 import ('./views/Booking.vue')
         },
+        {
+            path: '/parent',
+            name: 'parent',
+            // lazy-loaded
+            component: () =>
+                import ('./views/Parent.vue')
+        },
     ]
 });
 router.beforeEach((to, from, next) => {

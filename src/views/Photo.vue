@@ -26,10 +26,12 @@
  <span v-else><div class="bgbasic p-2 mt-1" style="border:1px solid black;"><router-link :to="{ path: '/amenities'+this.$route.params.id }" style="text-decoration:none;">Amenities</router-link></div></span>
   
   <span v-if="step=='photos'"><div class="ab p-2 mt-1">Photos</div></span>
-  <span v-if="steps.pricing==1"> <div class="p-2 mt-1" style="border:1px solid black;">Pricing</div> </span>
-  <span v-else> <div class="bgbasic p-2 mt-1">Pricing</div> </span>
-  <span v-if="steps.booking==1"> <div class="p-2 mt-1" style="border:1px solid black;">Bookking</div> </span>
-  <span v-else> <div class="bgbasic p-2 mt-1">Bookking</div> </span>
+  <span  v-if="steps.pricing==1"><div class=" p-2 mt-1"  style="border:1px solid black;"><router-link :to="{ path: '/price'+this.$route.params.id }" style="text-decoration:none;">Pricing</router-link></div></span>
+  <span v-else> <div class="bgbasic p-2 mt-1"><router-link :to="{ path: '/price'+this.$route.params.id }" style="text-decoration:none;">Pricing</router-link></div> </span>
+
+  <span v-if="steps.booking==1"> <div class="p-2 mt-1" style="border:1px solid black;"><router-link :to="{ path: '/booking'+this.$route.params.id }" style="text-decoration:none;">Booking</router-link></div> </span>
+  <span v-else> <div class="bgbasic p-2 mt-1"><router-link :to="{ path: '/booking'+this.$route.params.id }" style="text-decoration:none;">Booking</router-link></div> </span>
+  
  
 </div>
 </div>
@@ -45,7 +47,7 @@
     <div class="d-flex justify-content-between">
 
     <div class="mt-3">
-<input type="file" class="form-control"  @change="previewFiles" >
+<input type="file" class="form-control"  @change="previewFiles" ref="myFiles" >
     </div>
     <div class="mt-3">
     </div>
@@ -88,7 +90,7 @@ export default {
   name: "user",
   data() {
     return {
-      image:[],
+      photos:[],
       summary:"",
       step:'',
       steps:'',
@@ -102,7 +104,7 @@ export default {
 methods: { 
     previewFiles()
     {
-      this.image = this.$refs.myFiles.image
+      this.photos[0] = this.$refs.myFiles.photos[0];
     },
 view() {
       let user = JSON.parse(localStorage.getItem("user"));
@@ -132,11 +134,11 @@ view() {
           
           { 
 
-      //  photos []=[this.photos]
+          photos:this.photos[0]
          
          },
           {
-            headers: { Authorization: "Bearer " + user.token },
+            headers: { Authorization: "Bearer " + user.token, "Content-Type": "multipart/form-data" },
           }
         )
         .then((res) => {

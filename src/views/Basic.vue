@@ -14,14 +14,26 @@
   <div class="d-flex flex-column mb-3 justify-content-center text-center">
   
   <span v-if="step=='basics'"><div class="p-2  mt-1 ab">Basics</div></span>
-  <div class="bgcolor p-2 mt-1" > <router-link :to="{ path: '/description'+this.$route.params.id }" style="text-decoration:none;">Description</router-link>
-  </div>
-  <div class="bgcolor p-2 mt-1"><router-link :to="{ path: '/location'+this.$route.params.id }" style="text-decoration:none;">Location</router-link></div>
-  <div class="bgcolor p-2 mt-1"><router-link :to="{ path: '/amenities'+this.$route.params.id }" style="text-decoration:none;">Amenities</router-link></div>
-  <div class="bgcolor p-2 mt-1">Photos</div>
-  <div class="bgcolor p-2 mt-1">Pricing</div>
-  <div class="bgcolor p-2 mt-1"><router-link :to="{ path: '/booking'+this.$route.params.id }" style="text-decoration:none;">Booking</router-link></div>
-  <div class="bgcolor p-2 mt-1">Calendar</div>
+ <span v-if="steps.description==1"><div class="stl p-2 mt-1"><router-link :to="{ path: '/description'+this.$route.params.id }" style="text-decoration:none;">Description</router-link></div></span>
+ <span v-else><div class="bgbasic p-2 mt-1"><router-link :to="{ path: '/description'+this.$route.params.id }" style="text-decoration:none;">Description</router-link></div></span> 
+ 
+  
+  <span v-if="steps.location==1"><div class="stl p-2 mt-1"><router-link :to="{ path: '/location'+this.$route.params.id }" style="text-decoration:none;">Location</router-link></div></span>
+  <span v-else><div class="bgbasic p-2 mt-1"><router-link :to="{ path: '/location'+this.$route.params.id }" style="text-decoration:none;">Location</router-link></div></span>
+
+  <span v-if="steps.amenities==1"><div class="stl p-2 mt-1"><router-link :to="{ path: '/amenities'+this.$route.params.id }" style="text-decoration:none;">Amenities</router-link></div></span>
+  <span v-else><div class="bgbasic p-2 mt-1"><router-link :to="{ path: '/amenities'+this.$route.params.id }" style="text-decoration:none;">Amenities</router-link></div></span>
+  
+  <span v-if="steps.photos==1"> <div class="stl p-2 mt-1"><router-link :to="{ path: '/photo'+this.$route.params.id }" style="text-decoration:none;">Photo</router-link></div> </span>
+  <span v-else> <div class="bgbasic p-2 mt-1"><router-link :to="{ path: '/photo'+this.$route.params.id }" style="text-decoration:none;">Photo</router-link></div> </span>
+
+  <span  v-if="steps.pricing==1"><div class="stl p-2 mt-1"><router-link :to="{ path: '/price'+this.$route.params.id }" style="text-decoration:none;">Pricing</router-link></div></span>
+  <span v-else> <div class="bgbasic p-2 mt-1"><router-link :to="{ path: '/price'+this.$route.params.id }" style="text-decoration:none;">Pricing</router-link></div> </span>
+
+  <span v-if="steps.booking==1"> <div class="stl p-2 mt-1"><router-link :to="{ path: '/booking'+this.$route.params.id }" style="text-decoration:none;">Booking</router-link></div> </span>
+  <span v-else> <div class="bgbasic p-2 mt-1"><router-link :to="{ path: '/booking'+this.$route.params.id }" style="text-decoration:none;">Booking</router-link></div> </span>
+ 
+
   </div>
 	</div>
 			
@@ -33,6 +45,7 @@
 	<div class="row ">
 		<div class="roomsandbeds d-flex align-items-start backgrnd"><h4>Rooms and Beds</h4></div>
 		<div class="col-md-6">
+    
    <label for="inputState" class="form-label">Bedrooms</label>
     <select id="inputState" class="form-select" v-model="totalbedrooms" required>
        <option value="1">1</option>
@@ -181,6 +194,7 @@ export default {
       space_type:"",
       bed_type:"",
       step:'',
+      steps:'',
       bedtypes:'',
 
 
@@ -227,7 +241,7 @@ server.on('connection', function (socket) {
           this.space_type=res.data.data.property.space_type,
 
          this.step=res.data.data.step
-      
+         this.steps=res.data.data.steps;
         });
     },
     add() {
@@ -272,6 +286,10 @@ server.on('connection', function (socket) {
 </script>
 
 <style scoped>
+.stl{ 
+border:1px solid black;
+
+}
 .bgg{
 font-size: 42px;
 color:red;
@@ -314,5 +332,7 @@ color:white;
 background-color:#6C757D;
 color: white;
 }
-
+.bgbasic{
+background-color: rgb(199, 183, 183);
+}
 </style>

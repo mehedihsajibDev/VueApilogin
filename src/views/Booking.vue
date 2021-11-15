@@ -48,7 +48,7 @@
     </div>
     <div class="col-md-6">
     <label for="inputState" class="form-label">Booking Type</label>
-    <select id="inputState" class="form-select"  v-model="booking_type" required>
+    <select id="inputState" class="form-select"  v-model="booking_type" >
        <option value="request">Review each request</option>
        <option value="instant">Guest Book Instanly</option>
     </select>
@@ -116,7 +116,7 @@ view() {
             this.step=res.data.data.step;
             this.steps=res.data.data.steps;
             this.booking_typ=res.data.data.property.booking_type;
-            console.log(this.steps);
+           
         });
     },
     add() {
@@ -139,14 +139,14 @@ view() {
         )
         .then((res) => {
         res.data
-        console.log(res.data);
-          //  this.$router.push(`/amenities${res.data.data.steps.property_id}`);
-          
        
-              
+
+          //this.$router.push(`/amenities${res.data.data.steps.property_id}`);
+
         });
     },
 },
+
 
 }
 </script>

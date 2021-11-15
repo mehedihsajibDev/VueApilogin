@@ -59,8 +59,10 @@
       </div>
     </nav>
 
-    <div class="container">
+    <div class="container"> 
+    
       <router-view />
+
     </div>
   </div>
 </template>
