@@ -107,11 +107,15 @@
   <div>
    <button type="submit" class="btn btn-info mt-4">Next</button>
   </div>
+
+
   </div>
 </div>
 
 <div class="col-md-2">
-	
+<div class="container">
+	<router-view></router-view>
+</div>
 </div>
 	
 </div>

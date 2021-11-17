@@ -44,6 +44,7 @@
     <div class="row">
 
     <div class="mt-3">
+    
  <div class="form-check" v-for="am in amenities" :key="am.id">
  <div v-if="am.type_id==1">
 
@@ -92,25 +93,26 @@
 <script>
 
 import axios from "axios";
+
 export default {
   name: "user",
   data() {
     return {
-     
+
       name:"",
       summary:"",
       step:'',
       steps:'',
       amenities:[],
       amen:[],
-    
     };
   },
+
   mounted(){ 
     this.view();
-    
   },
- methods: { 
+
+ methods:{ 
 
 view() {
       let user = JSON.parse(localStorage.getItem("user"));
@@ -123,17 +125,14 @@ view() {
             headers: { Authorization: "Bearer " + user.token },
           }
         )
-        .then((res) => {
+        .then((res) =>{
             console.log(res.data);
             this.step=res.data.data.step;
             this.steps=res.data.data.steps;
             this.amenities=res.data.data.amenities;
-            //this.amenitiesvmodel=res.data.data.property_amenities;
-      
-              
+            //this.amenitiesvmodel=res.data.data.property_amenities;        
         });
     },
-
 
     add() {
       let user = JSON.parse(localStorage.getItem("user"));
@@ -146,23 +145,24 @@ view() {
           { 
            amenities:this.amen
           },
+
           {
             headers: { Authorization: "Bearer " + user.token },
           }
+        
         )
-        .then((res) => {
+        .then((res) =>{
             res.data
             //this.$router.push(`/location${res.data.data.id}`);
-          
-       
-              
         });
     },
 },
 
 }
+
 </script>
 <style scoped>
+
 .backgrnd{ 
 background-color: #EEEEEE;
 padding: 5px;
@@ -183,6 +183,7 @@ border: 1px solid gray;
 .ab{
 background-color:#74992e;
 }
+
 .bg:a{ 
 color:#353935;
 }
@@ -190,6 +191,7 @@ color:#353935;
 text-decoration:none;
 color: white;
 }
+
 .bg:hover{
 background-color: #6C757D;
 color: white;
@@ -202,4 +204,5 @@ background-color: rgb(199, 183, 183);
 .bgdescription{
 background-color: rgb(199, 183, 183);
 }
+
 </style>

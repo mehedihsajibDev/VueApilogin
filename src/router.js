@@ -104,9 +104,10 @@ export const router = new Router({
             name: 'price',
             // lazy-loaded
             component: () =>
-                import ('./views/Pricing.vue')
+                import ('./views/Pricing.vue'),           
         },
-        {
+
+        {                   
             path: '/booking:id',
             name: 'booking',
             // lazy-loaded
@@ -119,6 +120,13 @@ export const router = new Router({
             // lazy-loaded
             component: () =>
                 import ('./views/Parent.vue')
+        },
+        {
+            path: '/listing',
+            name: 'listing',
+            // lazy-loaded
+            component: () =>
+                import ('./views/Listing.vue')
         },
     ]
 });
