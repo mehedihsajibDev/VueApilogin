@@ -1,9 +1,9 @@
 <template>
     <div class="container">
     <div class="row mt-5">
-    <div class="col-md-2">
+    <div class="">
     </div>
-    <div class="col-md-10">
+    <div class="col-md-12">
     <div class="row">
     <div class="d-flex justify-content-between py-3" style="background-color:#EEE">
     <h4 class="text-muted">Listing</h4>
@@ -133,8 +133,20 @@
    
 </template>
 <script>
-export default { 
+export default{
 
+    data(){ 
+        return{ 
+
+        };
+    },
+    mounted(){
+        this.view();
+    },
+    methods:{ 
+
+    }
+    
 }
 </script>
 <style scoped>

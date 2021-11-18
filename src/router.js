@@ -128,6 +128,13 @@ export const router = new Router({
             component: () =>
                 import ('./views/Listing.vue')
         },
+        {
+            path: '/singlelist',
+            name: 'singlelist',
+            // lazy-loaded
+            component: () =>
+                import ('./views/SingleListProperty.vue')
+        },
     ]
 });
 router.beforeEach((to, from, next) => {
