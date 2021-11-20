@@ -1,5 +1,16 @@
 <template>
-    <div class="container">
+
+    <div class="container ">
+   <div class="col-md-12">
+   <div>
+    <VueSlickCarousel :arrows="true" :dots="true">
+      <div class>1</div>
+      <div>2</div>
+      <div>3</div>
+      <div>4</div>
+    </VueSlickCarousel>
+  </div>
+   </div>
     <div class="row mt-5">
     <div class="">
     </div>
@@ -10,16 +21,17 @@
     <div class="text-dark">
     Sort By
     <select v-model="status" name="" id="" class="p-2" @change.prevent="alert()"> 
-    <option value="1">All</option>
-    <option value="2">Not All</option>
-    </select>                   
+    <option value="1">Listed</option>
+    <option value="2">Unlisted</option>
+    </select>
+
     </div>
     </div>
     </div>
-    <div v-for="(item,index) in property_address.data" 
+    <div v-for="(item,index) in property.data" 
       :key="item.id" :value="index">
     <div class="row border p-2 mt-5">
-    <div class="col-md-3" >
+    <div class="col-md-3">
   <img :src="item.cover_photo" class="img-fluid  h-100 w-100"  alt="nothing">
     </div>
     <div class="col-md-6 ">
@@ -46,10 +58,12 @@
 
     <div class="col-md-3">
     <div class="d-flex justify-content-center">
-    <div class="form-check form-switch ">
-  <input class="form-check-input" type="checkbox"    id="flexSwitchCheckDefault">
-  <label class="form-check-label" for="flexSwitchCheckDefault"></label>
-</div>
+    <div>
+    
+ 
+<toggle-button :value="true"
+               :labels="{checked: 'listed', unchecked: 'Unlisted'}" :font-size="16" :width="90" :height="30"/>
+    </div>
     </div>
     <div class="d-flex justify-content-end">
     <p><i class="fa fa-edit"></i>Manage Listing and calendar</p>
@@ -63,25 +77,29 @@
     <div class="col-md-1">
 
     </div>
-      <pagination :data="property_address" :limit="limit"  @pagination-change-page="getPaginateList">
+      <pagination :data="property" :limit="limit"  @pagination-change-page="getPaginateList">
              <span slot="prev-nav">&lt; Previous</span>
              <span slot="next-nav">Next &gt;</span>
-           </pagination>
+           </pagination>       
  
     </div>
     
    
 </template>
 <script>
-
+ import VueSlickCarousel from 'vue-slick-carousel'
+  import 'vue-slick-carousel/dist/vue-slick-carousel.css'
+  // optional style for arrows & dots
+  import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
 import axios from "axios";
 export default{
      name:"users",
+      components: { VueSlickCarousel },
     data(){ 
         return{ 
        images:"",
        status:"",
-       property_address:{},
+       property:{},
         };
     },
        props:{
@@ -92,7 +110,7 @@ export default{
         },
     mounted(){
         this.view();
-        this.getPaginateList();
+        //this.getPaginateList();
     },
     methods:{ 
      view() {
@@ -104,22 +122,25 @@ export default{
         .then((res) => {
           res.data
           console.log(res.data);
-          this.property_address=res.data.data.properties;
+          this.property=res.data.data.properties;
+         
           
         });
-    },
+    }, 
     getPaginateList(page = 1){
        let user = JSON.parse(localStorage.getItem("user"));
               axios.get('https://vrent.techvill.org/vrentapi/api/properties?page=' + page,{
           headers: {Authorization:"Bearer "+ user.token },
-        }).then(response => {
+        }).then(response =>{
                     response.data
-                   this.property_address=response.data.data.properties;
+                    this.property=response.data.data.properties;
+                  
               });
             },
+
             alert(){
               alert(this.status);
-            }
+                   }
     }
     
 }

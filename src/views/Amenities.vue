@@ -22,7 +22,7 @@
  <span v-else><div class="bgbasic p-2 mt-1" style="border:1px solid black;"><router-link :to="{ path: '/location'+this.$route.params.id }" style="text-decoration:none;">Location</router-link></div></span>
   
   <span v-if="step=='amenities'"><div class="ab p-2 mt-1">Amenities</div></span>
-  <span v-if="steps.photos==1"> <div class="p-2 mt-1" style="border:1px solid black;"><router-link :to="{ path: '/photo'+this.$route.params.id }" style="text-decoration:none;">Photos</router-link></div> </span>
+  <span v-if="steps.photos==0"> <div class="p-2 mt-1" style="border:1px solid black;"><router-link :to="{ path: '/photo'+this.$route.params.id }" style="text-decoration:none;">Photos</router-link></div> </span>
   <span v-else> <div class="bgbasic p-2 mt-1"><router-link :to="{ path: '/photo'+this.$route.params.id }" style="text-decoration:none;">Photos</router-link></div> </span>
   <span  v-if="steps.pricing==1"><div class=" p-2 mt-1"  style="border:1px solid black;"><router-link :to="{ path: '/price'+this.$route.params.id }" style="text-decoration:none;">Pricing</router-link></div></span>
   <span v-else> <div class="bgbasic p-2 mt-1"><router-link :to="{ path: '/price'+this.$route.params.id }" style="text-decoration:none;">Pricing</router-link></div> </span>
@@ -52,29 +52,20 @@
   <label class="form-check-label" for="flexCheckDefault">
     {{am.title}}
   </label>
-</div>
-</div>
-</div>
-</div>
-<div class="row">
-<div><h4>Safety Amenity</h4></div>
-<div class="form-check" v-for="am in amenities" :key="am.id">
- <div v-if="am.type_id==2">
 
-  <input class="form-check-input" type="checkbox" :value="am.id" v-model="amen" id="flexCheckDefault" name="amenities[]" data-saving="1">
-  <label class="form-check-label" for="flexCheckDefault">
-    {{am.title}}
-  </label>
 </div>
 </div>
 </div>
+</div>
+
 </div>
   <div class="d-flex justify-content-between mt-3">
     <div>
       <!--  <router-link :to="{ path: '/basic'+this.$route.params.id }" class="btn btn-primary mt-4">Back</router-link>   <button class="btn btn-primary"><a href="/basic:93" style="text-decoration: none;color: white;">Back</a></button> -->
     </div>
     <div>
-   <button type="submit" class="btn btn-primary mt-4">Next</button>
+
+    <button type="submit" class="btn btn-primary mt-4">Next</button>
    
     </div>
   </div>
@@ -133,7 +124,7 @@ view() {
             //this.amenitiesvmodel=res.data.data.property_amenities;        
         });
     },
-
+    
     add() {
       let user = JSON.parse(localStorage.getItem("user"));
       axios
@@ -150,12 +141,12 @@ view() {
             headers: { Authorization: "Bearer " + user.token },
           }
         
-        )
+        )             
         .then((res) =>{
             res.data
-            //this.$router.push(`/location${res.data.data.id}`);
+            this.$router.push(`/photo${res.data.data.id}`);
         });
-    },
+    }, 
 },
 
 }

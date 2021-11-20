@@ -23,10 +23,10 @@
  <span v-if="steps.location==1"><div class="p-2 mt-1" style="border:1px solid black;"><router-link :to="{ path: '/location'+this.$route.params.id }" style="text-decoration:none;">Location</router-link></div></span>
  <span v-else><div class="bgbasic p-2 mt-1" style="border:1px solid black;"><router-link :to="{ path: '/location'+this.$route.params.id }" style="text-decoration:none;">Location</router-link></div></span>
 
-  <span v-if="steps.amenities==1"><div class="p-2 mt-1" style="border:1px solid black;"><router-link :to="{ path: '/amenities'+this.$route.params.id }" style="text-decoration:none;">Amenities</router-link></div></span>
+  <span v-if="steps.amenity==1"><div class="p-2 mt-1" style="border:1px solid black;"><router-link :to="{ path: '/amenities'+this.$route.params.id }" style="text-decoration:none;">Amenities</router-link></div></span>
   <span v-else><div class="bgbasic p-2 mt-1" style="border:1px solid black;"><router-link :to="{ path: '/amenities'+this.$route.params.id }" style="text-decoration:none;">Amenities</router-link></div></span>
   
-  <span v-if="steps.photos==1"> <div class="p-2 mt-1" style="border:1px solid black;"><router-link :to="{ path: '/photo'+this.$route.params.id }" style="text-decoration:none;">Photo</router-link></div> </span>
+  <span v-if="steps.photos==0"> <div class="p-2 mt-1" style="border:1px solid black;"><router-link :to="{ path: '/photo'+this.$route.params.id }" style="text-decoration:none;">Photo</router-link></div> </span>
   <span v-else> <div class="bgbasic p-2 mt-1"><router-link :to="{ path: '/photo'+this.$route.params.id }" style="text-decoration:none;">Photo</router-link></div> </span>
   
   <span v-if="step=='pricing'"><div class="ab p-2 mt-1">Pricing</div></span>
@@ -100,12 +100,14 @@
 
   </div>
   <div class="d-flex justify-content-between mt-3">
+
+
   <div>
     <router-link :to="{ path: '/photo'+this.$route.params.id }" class="btn btn-info mt-4">Back</router-link>
   </div>
 
   <div>
-   <button type="submit" class="btn btn-info mt-4">Next</button>
+  <button type="submit" class="btn btn-info mt-4">Next</button>
   </div>
 
 
@@ -114,7 +116,7 @@
 
 <div class="col-md-2">
 <div class="container">
-	<router-view></router-view>
+	
 </div>
 </div>
 	
@@ -198,10 +200,7 @@ view() {
         .then((res) => {
         res.data
         console.log(res.data);
-        this.$router.push(`/booking${res.data.data.steps.property_id}`);
-          
-       
-              
+        this.$router.push(`/booking${res.data.data.id}`);
         });
     },
 },

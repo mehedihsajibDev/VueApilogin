@@ -5,6 +5,11 @@ import { router } from './router';
 import store from './store';
 import 'bootstrap';
 
+//togglebutton
+import { ToggleButton } from 'vue-js-toggle-button'
+Vue.component('ToggleButton', ToggleButton)
+//togglebuttonfinish
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import VeeValidate from 'vee-validate';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -28,4 +33,4 @@ new Vue({
     router,
     store,
     render: h => h(App)
-}).$mount('#app');
+    }).$mount('#app');

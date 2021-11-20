@@ -32,7 +32,7 @@
   <p class="text-center font-weight-bold m-0"><i class="fa fa-money mr-2 text-16 align-middle badge-dark rounded-circle p-3 badge-success" style="background: rgba(0, 128, 0, 0.68);
     color: white;
     color: white;"></i> My Wallet</p>
-    <p class="text-center font-weight-bold m-0" style="font-weight: 700!important;">{{show.balance}}</p>
+    <p class="text-center font-weight-bold m-0" style="font-weight: 700!important;">{{show.wallet.balance}}</p>
     
     </div>
   

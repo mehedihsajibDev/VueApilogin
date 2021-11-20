@@ -21,10 +21,10 @@
   <span v-if="steps.location==1"><div class="stl p-2 mt-1"><router-link :to="{ path: '/location'+this.$route.params.id }" style="text-decoration:none;">Location</router-link></div></span>
   <span v-else><div class="bgbasic p-2 mt-1"><router-link :to="{ path: '/location'+this.$route.params.id }" style="text-decoration:none;">Location</router-link></div></span>
 
-  <span v-if="steps.amenities==1"><div class="stl p-2 mt-1"><router-link :to="{ path: '/amenities'+this.$route.params.id }" style="text-decoration:none;">Amenities</router-link></div></span>
+  <span v-if="steps.amenity==1"><div class="stl p-2 mt-1"><router-link :to="{ path: '/amenities'+this.$route.params.id }" style="text-decoration:none;">Amenities</router-link></div></span>
   <span v-else><div class="bgbasic p-2 mt-1"><router-link :to="{ path: '/amenities'+this.$route.params.id }" style="text-decoration:none;">Amenities</router-link></div></span>
   
-  <span v-if="steps.photos==1"> <div class="stl p-2 mt-1"><router-link :to="{ path: '/photo'+this.$route.params.id }" style="text-decoration:none;">Photo</router-link></div> </span>
+  <span v-if="steps.photos==0"> <div class="stl p-2 mt-1"><router-link :to="{ path: '/photo'+this.$route.params.id }" style="text-decoration:none;">Photo</router-link></div> </span>
   <span v-else> <div class="bgbasic p-2 mt-1"><router-link :to="{ path: '/photo'+this.$route.params.id }" style="text-decoration:none;">Photo</router-link></div> </span>
 
   <span  v-if="steps.pricing==1"><div class="stl p-2 mt-1"><router-link :to="{ path: '/price'+this.$route.params.id }" style="text-decoration:none;">Pricing</router-link></div></span>
@@ -270,8 +270,8 @@ server.on('connection', function (socket) {
         )
         .then((res) => {
             this.loading = false;
-          this.$router.push(`/description${res.data.data.id}`);
-       
+            this.$router.push(`/description${res.data.data.id}`);
+          
          // this.$router.push('/description');
  
         }).catch((res) => {
